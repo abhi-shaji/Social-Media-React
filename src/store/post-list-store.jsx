@@ -13,7 +13,7 @@ const postListReducer = (currPostList, action) => {
 const PostListProvider = ({ children }) => {
   const addPost = () => {};
 
-  const deletePost = () => {};
+  const deletePost = (postId) => {console.log(postId)};
 
   const [postList, dispatchPostList] = useReducer(
     postListReducer,
