@@ -10,7 +10,20 @@ const CreatePost = () => {
   const reactionsElement = useRef();
   const tagsElement = useRef();
 
-  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userId = userIdElement.current.value;
+    const postTitle = postTitleElement.current.value;
+    const postBody = postBodyElement.current.value;
+    const reactions = reactionsElement.current.value;
+    const tags = tagsElement.current.value.split(' ');
+    addPost(userId, postBody, postTitle, reactions, tags);
+    userIdElement.current.value = "";
+    postTitleElement.current.value = "";
+    postBodyElement.current.value = "";
+    reactionsElement.current.value = "";
+    tagsElement.current.value = "";
+  };
 
   return (
     <form className="create-post" onSubmit={handleSubmit}>

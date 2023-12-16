@@ -12,12 +12,36 @@ const postListReducer = (currPostList, action) => {
     newPostList = currPostList.filter((post) => {
       return post.id !== action.payload.postId;
     });
+  } else if (action.type === "NEW_POST") {
+    newPostList = [
+      {
+        id: action.payload.id,
+        title: action.payload.title,
+        body: action.payload.body,
+        reactions: action.payload.reactions,
+        userId: action.payload.userId,
+        tags: action.payload.tags,
+      },
+      ...currPostList,
+    ];
   }
   return newPostList;
 };
 
 const PostListProvider = ({ children }) => {
-  const addPost = () => {};
+  const addPost = (userId, postBody, postTitle, reactions, tags) => {
+    dispatchPostList({
+      type: "NEW_POST",
+      payload: {
+        id: Date.now,
+        title: postTitle,
+        body: postBody,
+        reactions: reactions,
+        userId: userId,
+        tags: tags,
+      },
+    });
+  };
 
   const deletePost = (postId) => {
     dispatchPostList({
