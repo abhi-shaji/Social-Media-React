@@ -12,12 +12,12 @@ function App() {
   const [selectedTab, setSelectedTab] = useState("Home");
 
   return (
-    <PostListProvider>
+    <PostListProvider setSelectedTab={setSelectedTab}>
       <div className="app-container">
         <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
         <div className="content">
           <Header />
-          {selectedTab === "Home" ? <PostList /> : <CreatePost />}
+          {selectedTab === "Home" ? <PostList setSelectedTab = {setSelectedTab} /> : <CreatePost />}
           <Footer />;
         </div>
       </div>
