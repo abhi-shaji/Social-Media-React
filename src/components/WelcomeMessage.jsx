@@ -12,6 +12,7 @@ const WelcomeMessage = ({ setSelectedTab }) => {
         >
           Add Post
         </button>
+        <button type="button" style={{marginTop:"10px"}} className="btn btn-primary">Get Posts From Server</button>
       </div>
     </center>
   );
