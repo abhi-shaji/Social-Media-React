@@ -1,4 +1,4 @@
-const WelcomeMessage = ({ setSelectedTab, onGetPostsClick }) => {
+const WelcomeMessage = ({ setSelectedTab }) => {
   return (
     <center>
       <div className="alert alert-dark welcome-message" role="alert">
@@ -11,14 +11,6 @@ const WelcomeMessage = ({ setSelectedTab, onGetPostsClick }) => {
           }}
         >
           Add Post
-        </button>
-        <button
-          type="button"
-          style={{ marginTop: "10px" }}
-          className="btn btn-primary"
-          onClick={onGetPostsClick}
-        >
-          Get Posts From Server
         </button>
       </div>
     </center>
