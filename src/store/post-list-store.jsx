@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useCallback, useReducer } from "react";
 
 export const PostList = createContext({
   postList: [],
@@ -25,46 +25,57 @@ const postListReducer = (currPostList, action) => {
       },
       ...currPostList,
     ];
-  } else if(action.type === "ADD_INITIAL_POSTS") {
+  } else if (action.type === "ADD_INITIAL_POSTS") {
     newPostList = action.payload.posts;
   }
   return newPostList;
 };
 
 const PostListProvider = ({ children }) => {
-  const addPost = (userId, postBody, postTitle, reactions, tags) => {
-    dispatchPostList({
-      type: "ADD_POST",
-      payload: {
-        id: Date.now,
-        title: postTitle,
-        body: postBody,
-        reactions: reactions,
-        userId: userId,
-        tags: tags,
-      },
-    });
-  };
-  const addInitialPosts = (posts) => {
-    dispatchPostList({
-      type: "ADD_INITIAL_POSTS",
-      payload: {
-        posts,
-      },
-    });
-  };
-
-  const deletePost = (postId) => {
-    dispatchPostList({
-      type: "DELETE_POST",
-      payload: { postId },
-    });
-  };
-
   const [postList, dispatchPostList] = useReducer(postListReducer, []);
 
+  const addPost = useCallback(
+    (userId, postBody, postTitle, reactions, tags) => {
+      dispatchPostList({
+        type: "ADD_POST",
+        payload: {
+          id: Date.now,
+          title: postTitle,
+          body: postBody,
+          reactions: reactions,
+          userId: userId,
+          tags: tags,
+        },
+      });
+    },
+    [dispatchPostList]
+  );
+  const addInitialPosts = useCallback(
+    (posts) => {
+      dispatchPostList({
+        type: "ADD_INITIAL_POSTS",
+        payload: {
+          posts,
+        },
+      });
+    },
+    [dispatchPostList]
+  );
+
+  const deletePost = useCallback(
+    (postId) => {
+      dispatchPostList({
+        type: "DELETE_POST",
+        payload: { postId },
+      });
+    },
+    [dispatchPostList]
+  );
+
   return (
-    <PostList.Provider value={{ postList, addPost, deletePost, addInitialPosts }}>
+    <PostList.Provider
+      value={{ postList, addPost, deletePost, addInitialPosts }}
+    >
       {children}
     </PostList.Provider>
   );

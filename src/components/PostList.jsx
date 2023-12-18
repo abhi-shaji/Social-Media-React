@@ -23,7 +23,6 @@ const PostList = ({ setSelectedTab }) => {
 
     return () => {
       controller.abort();
-      console.log("CLEAREDD");
     };
   }, []);
 
