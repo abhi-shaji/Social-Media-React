@@ -4,7 +4,7 @@ import { PostList as PostListData } from "../store/post-list-store";
 import WelcomeMessage from "./WelcomeMessage";
 import LoadingSpinner from "./LoadingSpinner";
 
-const PostList = ({ setSelectedTab }) => {
+const PostList = () => {
   const { postList, fetching } = useContext(PostListData);
 
   
@@ -13,7 +13,7 @@ const PostList = ({ setSelectedTab }) => {
     <>
       {fetching && <LoadingSpinner />}
       {!fetching && postList.length === 0 && (
-        <WelcomeMessage setSelectedTab={setSelectedTab} />
+        <WelcomeMessage  />
       )}
 
       {!fetching && postList.map((post) => <Post key={post.id} post={post} />)}
